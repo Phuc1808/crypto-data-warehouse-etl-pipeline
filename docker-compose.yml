@@ -1,0 +1,67 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:13
+    container_name: crypto_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 18082005
+      POSTGRES_DB: crypto_dw
+    ports:
+     - "5434:5432"
+    volumes:
+     - ./postgres_data:/var/lib/postgresql/data
+
+  airflow-webserver:
+    image: apache/airflow:2.7.3
+    container_name: crypto_airflow_web
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://postgres:18082005@postgres:5432/crypto_dw
+      AIRFLOW__WEBSERVER__SECRET_KEY: crypto_secret123
+    ports:
+      - "8082:8080"
+    depends_on:
+      - postgres
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./data:/opt/airflow/data
+      - ./logs:/opt/airflow/logs
+    command: >
+      bash -c "
+      airflow db init &&
+      airflow users create --username lamphucp3 --password phuc1808 --firstname truonglam --lastname phuc --role Admin --email truonglamphuc1972@gmail.com &&
+      airflow webserver
+      "
+
+  airflow-scheduler:
+    image: apache/airflow:2.7.3
+    container_name: crypto_scheduler
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://postgres:18082005@postgres:5432/crypto_dw
+    depends_on:
+      - postgres
+      - airflow-webserver
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./data:/opt/airflow/data
+      - ./logs:/opt/airflow/logs
+    command: >
+      bash -c "airflow scheduler"
+
+  streamlit:
+    image: python:3.9
+    container_name: crypto_streamlit
+    working_dir: /app
+    volumes:
+      - ./dashboard:/app
+    ports:
+      - "8502:8501"
+    depends_on:
+      - postgres
+    command: >
+      bash -c "
+      pip install streamlit psycopg2 pandas &&
+      streamlit run dashboard.py --server.port=8501 --server.address=0.0.0.0
+      "

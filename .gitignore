@@ -1,0 +1,16 @@
+# Ignore logs
+logs/
+
+# Ignore python cache
+__pycache__/
+*.pyc
+
+# Ignore airflow dags cache
+dags/__pycache__/
+
+# Ignore system files
+.DS_Store
+.vscode/
+
+# Ignore Postgres data volume
+postgres_data/
