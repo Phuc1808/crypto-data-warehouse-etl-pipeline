@@ -20,7 +20,7 @@ Architecture :
                                                   v
                                           Dashboard
 Tech Stack : 
-* Python (pandas,psycopg2,SQLAIchemy)
+* Python (pandas,psycopg2,SQLAlchemy)
 * PostgreSQL (schema)
 * Apache Airflow (task orchestration, DAG scheduling)
 * Docker Compose (containerization)
