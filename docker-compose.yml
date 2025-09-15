@@ -51,17 +51,13 @@ services:
       bash -c "airflow scheduler"
 
   streamlit:
-    image: python:3.9
+    build:
+      context: .
+      dockerfile: dockerfile.streamlit
     container_name: crypto_streamlit
-    working_dir: /app
-    volumes:
-      - ./dashboard:/app
     ports:
-      - "8502:8501"
+      - "8502:8501" 
     depends_on:
       - postgres
-    command: >
-      bash -c "
-      pip install streamlit psycopg2 pandas &&
-      streamlit run dashboard.py --server.port=8501 --server.address=0.0.0.0
-      "
+    volumes:
+      - .:/app

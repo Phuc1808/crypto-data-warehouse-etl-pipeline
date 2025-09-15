@@ -3,7 +3,7 @@ Project : Crypto Data Warehouse & ETL Pipeline
 Overview : 
 Dự án này xây dựng ETL pipeline để thu thập và xử lí dữ liệu tiền mã hóa (BTC,ETH,XRP) từ file JSON , sau đó lưu trữ vào PostgresSQL Data Warehouse với các schema chuẩn (raw,staging,mart). Pipeline được orchestrated bằng Apache Airflow và triển khai bằng Docker Compose.
 Architecture : 
-                        JSON files (BTC, ETH, XRP)
+                                     JSON files (BTC, ETH, XRP)
                                                     |
                                                     v
                                         Extract (Python)
@@ -18,7 +18,7 @@ Architecture :
                                          Data Modeling  → mart
                                                   |
                                                   v
-                                          Dashboard
+                                              Dashboard
 Tech Stack : 
 * Python (pandas,psycopg2,SQLAIchemy)
 * PostgreSQL (schema)
