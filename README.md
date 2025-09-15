@@ -20,7 +20,7 @@ Architecture :
                                                   v
                                               Dashboard
 Tech Stack : 
-* Python (pandas,psycopg2,SQLAIchemy)
+* Python (pandas,psycopg2,SQLAlchemy)
 * PostgreSQL (schema)
 * Apache Airflow (task orchestration, DAG scheduling)
 * Docker Compose (containerization)
@@ -60,7 +60,9 @@ cd crypto-data-warehouse-etl-pipeline
         docker-compose up -d
 3. Access Airflow UI : 
         URL: http://127.0.0.1:8082
-4. Trigger DAG : 
+        User : lamphucp3
+        Password : phuc1808
+5. Trigger DAG : 
         Bật DAG crypto_dag (bật trigger thủ công)
-5. Access dashboard : 
+6. Access dashboard : 
         URL: http://127.0.0.1:8502
